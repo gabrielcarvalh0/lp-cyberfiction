@@ -1,44 +1,8 @@
-import React, { useRef, useEffect, useState } from "react";
-import { useSpring, animated, config } from "react-spring";
-import { Element, animateScroll as scroll } from "react-scroll";
+import React from "react";
+
 
 import "./App.css";
-interface AnimationProps {
-  scroll: number;
-}
-
 const App: React.FC = () => {
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [{ scrollTop }, set] = useSpring(() => ({
-    scrollTop: window.scrollY,
-    config: { mass: 1, tension: 170, friction: 26 },
-  }));
-  const windowHeight = window.innerHeight;
-  const scrollToTop = () => {
-    scroll.scrollToTop();
-  };
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const newIndex = Math.floor(scrollY / (windowHeight / 100));
-
-      if (newIndex !== currentImageIndex) {
-        setCurrentImageIndex(newIndex);
-      }
-
-      set({ scrollTop: scrollY });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  const images = [];
-  for (let i = 1; i <= 300; i++) {
-    images.push(`male${i.toString().padStart(4, "0")}.png`);
-  }
 
   return (
     <div className="w-full relative scroll-smooth">
